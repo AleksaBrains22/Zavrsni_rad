@@ -1,0 +1,217 @@
+2023-02-23 15:57:30.973  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 15:57:30.976  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 15:57:31.004  INFO 2724 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-02-23 15:57:31.004  INFO 2724 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-02-23 15:57:31.395  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 15:57:31.432  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 5 JPA repository interfaces.
+2023-02-23 15:57:31.779  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 15:57:31.785  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 15:57:31.785  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 15:57:31.830  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 15:57:31.831  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 826 ms
+2023-02-23 15:57:32.117  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-02-23 15:57:32.294  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-02-23 15:57:32.869  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 15:57:33.088  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a8922d1a-737f-4ba2-ab62-7dd4480407bf
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 15:57:33.161  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@71a62797, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4dd16119, org.springframework.security.web.context.SecurityContextPersistenceFilter@3aa8a492, org.springframework.security.web.header.HeaderWriterFilter@7dfacd3c, org.springframework.security.web.authentication.logout.LogoutFilter@4f598918, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@7affd2f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35ab9a3a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58e862b2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@77bed325, org.springframework.security.web.session.SessionManagementFilter@3350c6d1, org.springframework.security.web.access.ExceptionTranslationFilter@58968d93, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@791fc542]
+2023-02-23 15:57:33.198  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 15:57:33.356  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 15:57:33.473  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 15:57:33.495  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 15:57:33.500  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 2.727 seconds (JVM running for 3.143)
+2023-02-23 15:57:37.775  INFO 2724 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-23 15:57:37.776  INFO 2724 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-02-23 15:57:37.776  INFO 2724 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-02-23 16:00:55.899  WARN 2724 --- [http-nio-8080-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.iktpreobuka.backend.entities.Uloga` from String "4": not one of the values accepted for Enum class: [RODITELJ, NASTAVNIK, UCENIK, ADMIN]; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `com.iktpreobuka.backend.entities.Uloga` from String "4": not one of the values accepted for Enum class: [RODITELJ, NASTAVNIK, UCENIK, ADMIN]<EOL> at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 8, column: 14] (through reference chain: com.iktpreobuka.backend.dto.KorisnikDTO["uloga"])]
+2023-02-23 16:01:54.003  WARN 2724 --- [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.iktpreobuka.backend.entities.Uloga` from String "5": not one of the values accepted for Enum class: [RODITELJ, NASTAVNIK, UCENIK, ADMIN]; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `com.iktpreobuka.backend.entities.Uloga` from String "5": not one of the values accepted for Enum class: [RODITELJ, NASTAVNIK, UCENIK, ADMIN]<EOL> at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 8, column: 14] (through reference chain: com.iktpreobuka.backend.dto.KorisnikDTO["uloga"])]
+2023-02-23 16:06:12.337  INFO 2724 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2023-02-23 16:06:12.342  INFO 2724 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:06:12.343  INFO 2724 --- [Thread-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-02-23 16:06:12.347  INFO 2724 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:12.349  INFO 2724 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-02-23 16:06:12.352  INFO 2724 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-02-23 16:06:12.394  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 16:06:12.394  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 16:06:12.490  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 16:06:12.501  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 5 JPA repository interfaces.
+2023-02-23 16:06:12.565  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 16:06:12.566  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 16:06:12.566  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 16:06:12.577  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 16:06:12.577  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 182 ms
+2023-02-23 16:06:12.615  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-02-23 16:06:12.623  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-02-23 16:06:12.717  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:12.776  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f2af55b4-c29b-4ee1-8f32-2a387ed79335
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 16:06:12.791  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@73d7023b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73b3a72f, org.springframework.security.web.context.SecurityContextPersistenceFilter@583dab40, org.springframework.security.web.header.HeaderWriterFilter@39e98b4e, org.springframework.security.web.authentication.logout.LogoutFilter@e60f6ae, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@6b48b01f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51066e31, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24c02ca4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@696fa6f3, org.springframework.security.web.session.SessionManagementFilter@49eac0e7, org.springframework.security.web.access.ExceptionTranslationFilter@1c52bc1a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2194663b]
+2023-02-23 16:06:12.810  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 16:06:12.880  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 16:06:12.955  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 16:06:12.962  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 16:06:12.965  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 0.589 seconds (JVM running for 522.608)
+2023-02-23 16:06:12.965  INFO 2724 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-02-23 16:06:16.425  INFO 2724 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2023-02-23 16:06:16.428  INFO 2724 --- [Thread-7] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:06:16.430  INFO 2724 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:16.431  INFO 2724 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-02-23 16:06:16.432  INFO 2724 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-02-23 16:06:16.470  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 16:06:16.470  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 16:06:16.559  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 16:06:16.570  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 5 JPA repository interfaces.
+2023-02-23 16:06:16.626  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 16:06:16.627  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 16:06:16.627  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 16:06:16.638  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 16:06:16.638  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 167 ms
+2023-02-23 16:06:16.674  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2023-02-23 16:06:16.680  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2023-02-23 16:06:16.765  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:16.818  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 003465cf-f551-48db-83e1-9b5a8843b142
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 16:06:16.832  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2846672e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3073f1aa, org.springframework.security.web.context.SecurityContextPersistenceFilter@40a4da43, org.springframework.security.web.header.HeaderWriterFilter@121657f4, org.springframework.security.web.authentication.logout.LogoutFilter@292a9f3f, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@201f026c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5793852c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@779ad1dd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41af728b, org.springframework.security.web.session.SessionManagementFilter@3f30f512, org.springframework.security.web.access.ExceptionTranslationFilter@5798170c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1cbfbdd1]
+2023-02-23 16:06:16.848  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 16:06:16.912  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 16:06:16.981  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 16:06:16.987  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 16:06:16.991  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 0.534 seconds (JVM running for 526.634)
+2023-02-23 16:06:16.992  INFO 2724 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-02-23 16:06:21.469  INFO 2724 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-02-23 16:06:21.472  INFO 2724 --- [Thread-11] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:06:21.475  INFO 2724 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:21.475  INFO 2724 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2023-02-23 16:06:21.477  INFO 2724 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2023-02-23 16:06:21.514  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 16:06:21.514  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 16:06:21.601  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 16:06:21.612  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 5 JPA repository interfaces.
+2023-02-23 16:06:21.666  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 16:06:21.666  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 16:06:21.666  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 16:06:21.677  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 16:06:21.677  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 162 ms
+2023-02-23 16:06:21.709  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2023-02-23 16:06:21.716  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2023-02-23 16:06:21.791  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:21.844  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 63401f5e-1947-46dd-9ee5-c91769ed2943
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 16:06:21.860  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4f983640, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d73a602, org.springframework.security.web.context.SecurityContextPersistenceFilter@7ba0b631, org.springframework.security.web.header.HeaderWriterFilter@6f43438b, org.springframework.security.web.authentication.logout.LogoutFilter@5cd9a712, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@58a3c3d4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d1f603e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7835250d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63638d89, org.springframework.security.web.session.SessionManagementFilter@7ee497af, org.springframework.security.web.access.ExceptionTranslationFilter@248a486b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f4c96e7]
+2023-02-23 16:06:21.874  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 16:06:21.937  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 16:06:22.006  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 16:06:22.014  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 16:06:22.017  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 0.516 seconds (JVM running for 531.66)
+2023-02-23 16:06:22.017  INFO 2724 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-02-23 16:06:25.469  INFO 2724 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-02-23 16:06:25.473  INFO 2724 --- [Thread-15] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:06:25.475  INFO 2724 --- [Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:25.475  INFO 2724 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2023-02-23 16:06:25.477  INFO 2724 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2023-02-23 16:06:25.513  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 16:06:25.514  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 16:06:25.597  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 16:06:25.607  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 5 JPA repository interfaces.
+2023-02-23 16:06:25.660  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 16:06:25.661  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 16:06:25.661  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 16:06:25.671  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 16:06:25.671  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 157 ms
+2023-02-23 16:06:25.706  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2023-02-23 16:06:25.712  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2023-02-23 16:06:25.781  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:25.823  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 6b0a8605-7571-4c5a-a926-f45f822cba08
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 16:06:25.837  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@19cf131, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e2fb787, org.springframework.security.web.context.SecurityContextPersistenceFilter@549c4b73, org.springframework.security.web.header.HeaderWriterFilter@38fae10, org.springframework.security.web.authentication.logout.LogoutFilter@75b53f56, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@43ac2c45, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48d79c8b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@365654af, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a98c19d, org.springframework.security.web.session.SessionManagementFilter@56147e7d, org.springframework.security.web.access.ExceptionTranslationFilter@3cc40261, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2c7ca025]
+2023-02-23 16:06:25.853  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 16:06:25.915  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 16:06:25.993  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 16:06:26.001  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 16:06:26.003  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 0.502 seconds (JVM running for 535.646)
+2023-02-23 16:06:26.004  INFO 2724 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-02-23 16:06:36.580  INFO 2724 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-02-23 16:06:36.584  INFO 2724 --- [Thread-19] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:06:36.587  INFO 2724 --- [Thread-19] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:36.587  INFO 2724 --- [Thread-19] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2023-02-23 16:06:36.588  INFO 2724 --- [Thread-19] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2023-02-23 16:06:36.627  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 16:06:36.627  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 16:06:36.710  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 16:06:36.721  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 5 JPA repository interfaces.
+2023-02-23 16:06:36.774  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 16:06:36.774  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 16:06:36.774  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 16:06:36.784  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 16:06:36.784  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 156 ms
+2023-02-23 16:06:36.819  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2023-02-23 16:06:36.824  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2023-02-23 16:06:36.892  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:36.934  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4b446c7e-48ce-4dde-8073-1dbffcc0f991
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 16:06:36.948  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@9a5c97a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@29168ac3, org.springframework.security.web.context.SecurityContextPersistenceFilter@2f861db3, org.springframework.security.web.header.HeaderWriterFilter@cacf4d6, org.springframework.security.web.authentication.logout.LogoutFilter@3f68f13, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@72c2ede7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32f9bc4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@684ed533, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43668d3c, org.springframework.security.web.session.SessionManagementFilter@176c7a8d, org.springframework.security.web.access.ExceptionTranslationFilter@4f51e11, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@604a2be8]
+2023-02-23 16:06:36.964  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 16:06:37.026  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 16:06:37.103  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 16:06:37.111  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 16:06:37.114  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 0.499 seconds (JVM running for 546.757)
+2023-02-23 16:06:37.115  INFO 2724 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-02-23 16:06:38.534  INFO 2724 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-02-23 16:06:38.538  INFO 2724 --- [Thread-23] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:06:38.540  INFO 2724 --- [Thread-23] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:38.540  INFO 2724 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2023-02-23 16:06:38.542  INFO 2724 --- [Thread-23] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2023-02-23 16:06:38.582  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Starting ZavrsniRadBackendApplication using Java 17.0.6 on DESKTOP-IDPT4SL with PID 2724 (C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend\target\classes started by Pricamo in C:\Projects\workspaceIKTPreobuka\zavrsni_rad_backend)
+2023-02-23 16:06:38.582  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-02-23 16:06:38.666  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-23 16:06:38.676  INFO 2724 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 5 JPA repository interfaces.
+2023-02-23 16:06:38.731  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-23 16:06:38.731  INFO 2724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-23 16:06:38.731  INFO 2724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-23 16:06:38.741  INFO 2724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-02-23 16:06:38.741  INFO 2724 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 158 ms
+2023-02-23 16:06:38.773  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2023-02-23 16:06:38.778  INFO 2724 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2023-02-23 16:06:38.849  INFO 2724 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:06:38.889  WARN 2724 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f76da1b4-88d0-4f99-b973-e848b2bd5906
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-02-23 16:06:38.903  INFO 2724 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@21fce1e1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d377b64, org.springframework.security.web.context.SecurityContextPersistenceFilter@2eb488f3, org.springframework.security.web.header.HeaderWriterFilter@33e15186, org.springframework.security.web.authentication.logout.LogoutFilter@4beb35e4, com.iktpreobuka.backend.entities.config.security.JWTAuthorizationFilter@180c35f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a56f03d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7302e590, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e2b327d, org.springframework.security.web.session.SessionManagementFilter@521c07c2, org.springframework.security.web.access.ExceptionTranslationFilter@2f1973f3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2e8c2d07]
+2023-02-23 16:06:38.919  WARN 2724 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-23 16:06:38.981  WARN 2724 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-02-23 16:06:39.056  INFO 2724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-23 16:06:39.064  INFO 2724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-02-23 16:06:39.066  INFO 2724 --- [restartedMain] c.i.b.ZavrsniRadBackendApplication       : Started ZavrsniRadBackendApplication in 0.499 seconds (JVM running for 548.71)
+2023-02-23 16:06:39.067  INFO 2724 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-02-23 16:17:10.651  INFO 2724 --- [RMI TCP Connection(33)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-02-23 16:17:10.655  INFO 2724 --- [RMI TCP Connection(33)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-23 16:17:10.657  INFO 2724 --- [RMI TCP Connection(33)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-23 16:17:10.658  INFO 2724 --- [RMI TCP Connection(33)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2023-02-23 16:17:10.659  INFO 2724 --- [RMI TCP Connection(33)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
