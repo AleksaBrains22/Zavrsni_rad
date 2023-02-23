@@ -12,36 +12,26 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iktpreobuka.backend.dto.KorisnikDTO;
-import com.iktpreobuka.backend.services.KorisnikServiceImpl;
+import com.iktpreobuka.backend.dto.OdeljenjeDTO;
+import com.iktpreobuka.backend.services.OdeljenjeServiceImpl;
 
 @RestController
-@RequestMapping(path = "/api/v1/korisnik")
-public class KorisnikControler {
+@RequestMapping(path = "api/v1/odeljenje")
+public class OdeljenjeControler {
 	@Autowired
-	private KorisnikServiceImpl korisnikServiceImpl;
+	private OdeljenjeServiceImpl odeljenjeServiceImpl;
 
-	@RequestMapping(method = RequestMethod.POST, path = "/newUser")
-	public ResponseEntity<?> newUser(@Valid @RequestBody KorisnikDTO newKorisnikEntity) {
-		return korisnikServiceImpl.createNewUser(newKorisnikEntity);
+	@RequestMapping(method = RequestMethod.POST, value = "/novoOdeljnje")
+	public ResponseEntity<?> novoOdeljenje(@Valid @RequestBody OdeljenjeDTO odeljenjeDTO) {
+		return odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO);
 	}
-	@RequestMapping(method =RequestMethod.GET , path = "/{id}")
-	public ResponseEntity<?> findUserById(@PathVariable Long id){
-		return korisnikServiceImpl.findUserbyId(id);
-	}
-	
-	
-	
-	
-	
-		
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleException(MethodArgumentNotValidException ex) {

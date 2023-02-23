@@ -7,4 +7,5 @@ import com.iktpreobuka.backend.dto.KorisnikDTO;
 public interface KorisnikService {
 
 	public ResponseEntity<?> createNewUser(KorisnikDTO noviKorisnik);
+	public ResponseEntity<?> findUserbyId(Long id);
 }
