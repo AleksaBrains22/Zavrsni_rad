@@ -8,4 +8,5 @@ public interface KorisnikService {
 
 	public ResponseEntity<?> createNewUser(KorisnikDTO noviKorisnik);
 	public ResponseEntity<?> findUserbyId(Long id);
+	public ResponseEntity<?> brisanjeKorisnika(Long id);
 }

@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +34,26 @@ public class PredmetControler {
 	ResponseEntity<?> noviPredmet(@Valid @RequestBody PredmetDTO noviPredmetDTO) {
 		return predmetServiceImpl.novipredmet(noviPredmetDTO);
 	}
-
+	
+	@RequestMapping(method = RequestMethod.DELETE, path ="/obrisipredmet/{id}")
+	ResponseEntity<?> obrisiPredmet(@PathVariable Long id){
+		return predmetServiceImpl.brisanjePredmeta(id);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/izmenaPredmeta/{id}")
+	ResponseEntity<?> izmenaPredmeta(@Valid @RequestBody PredmetDTO noviPredmetDTO , @PathVariable Long id) {
+		return predmetServiceImpl.izmenaPredmeta(noviPredmetDTO , id);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	ResponseEntity<?> pronadjiPredmetPoIdju(@PathVariable Long id) {
+		return predmetServiceImpl.pronadjiPredmetPoIdju(id);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	ResponseEntity<?> pronadjiSvePredmete() {
+		return predmetServiceImpl.pronadjiSvePredmete();
+	}
 
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

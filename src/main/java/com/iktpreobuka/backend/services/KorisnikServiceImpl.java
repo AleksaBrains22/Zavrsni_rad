@@ -73,4 +73,14 @@ public class KorisnikServiceImpl implements KorisnikService {
 		}	
 		return new ResponseEntity<>(korisnik,HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<?> brisanjeKorisnika(Long id) {
+		Optional<KorisnikEntity> korisnik = repositories.findById(id);
+		if (korisnik.isPresent()) {
+			repositories.delete(korisnik.get());
+		return new ResponseEntity<>(korisnik,HttpStatus.OK);
+		}
+		return new ResponseEntity<>("User sa tim ID brojem ne postoji ili je vec obrisan", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

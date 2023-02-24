@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,9 +28,9 @@ public class OdeljenjeControler {
 	@Autowired
 	private OdeljenjeServiceImpl odeljenjeServiceImpl;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/novoOdeljnje")
-	public ResponseEntity<?> novoOdeljenje(@Valid @RequestBody OdeljenjeDTO odeljenjeDTO) {
-		return odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO);
+	@RequestMapping(method = RequestMethod.POST, value = "/novoOdeljnje/{id}")
+	public ResponseEntity<?> novoOdeljenje(@Valid @RequestBody OdeljenjeDTO odeljenjeDTO, @PathVariable Long id) {
+		return odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO , id);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

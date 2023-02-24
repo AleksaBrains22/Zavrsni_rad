@@ -37,6 +37,12 @@ public class KorisnikControler {
 		return korisnikServiceImpl.findUserbyId(id);
 	}
 	
+	@RequestMapping(method = RequestMethod.DELETE, path = "/obrisiKorisnika/{id}")
+	public ResponseEntity<?> deleteUser(@PathVariable Long id){
+		return korisnikServiceImpl.brisanjeKorisnika(id);
+	}
+	
+	
 	
 	
 	
