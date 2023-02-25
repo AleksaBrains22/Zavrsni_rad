@@ -1,12 +1,13 @@
 package com.iktpreobuka.backend.services;
 
-import org.springframework.http.ResponseEntity;
+
 
 import com.iktpreobuka.backend.dto.KorisnikDTO;
+import com.iktpreobuka.backend.entities.KorisnikEntity;
 
 public interface KorisnikService {
 
-	public ResponseEntity<?> createNewUser(KorisnikDTO noviKorisnik);
-	public ResponseEntity<?> findUserbyId(Long id);
-	public ResponseEntity<?> brisanjeKorisnika(Long id);
+	public KorisnikEntity createNewUser(KorisnikDTO noviKorisnik);
+	public KorisnikEntity findUserbyId(Long id);
+	public KorisnikEntity brisanjeKorisnika(Long id);
 }

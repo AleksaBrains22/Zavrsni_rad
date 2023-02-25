@@ -1,15 +1,15 @@
 package com.iktpreobuka.backend.services;
 
-import org.springframework.http.ResponseEntity;
 
 import com.iktpreobuka.backend.dto.PredmetDTO;
+import com.iktpreobuka.backend.entities.PredmetEntity;
 
 
 public interface PredmetService {
 
-	public ResponseEntity<?> novipredmet(PredmetDTO noviPredmetDTO);
-	public ResponseEntity<?> brisanjePredmeta(Long id);
-	public ResponseEntity<?> izmenaPredmeta(PredmetDTO noviPredmetDTO ,Long id);
-	public ResponseEntity<?> pronadjiPredmetPoIdju(Long id);
-	public ResponseEntity<?> pronadjiSvePredmete();
+	public PredmetEntity novipredmet(PredmetDTO noviPredmetDTO);
+	public PredmetEntity brisanjePredmeta(Long id);
+	public PredmetEntity izmenaPredmeta(PredmetDTO noviPredmetDTO ,Long id);
+	public PredmetEntity pronadjiPredmetPoIdju(Long id);
+	public Iterable<PredmetEntity> pronadjiSvePredmete();
 }

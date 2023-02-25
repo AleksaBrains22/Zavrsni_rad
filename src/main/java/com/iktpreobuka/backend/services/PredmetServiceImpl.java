@@ -1,11 +1,7 @@
 package com.iktpreobuka.backend.services;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.iktpreobuka.backend.dto.PredmetDTO;
@@ -20,51 +16,51 @@ public class PredmetServiceImpl implements PredmetService {
 	private PredmetRepositories predmetRepositories;
 
 	@Override
-	public ResponseEntity<?> novipredmet(PredmetDTO noviPredmetDTO) {
+	public PredmetEntity novipredmet(PredmetDTO noviPredmetDTO) {
 		PredmetEntity predmet = new PredmetEntity();
 		predmet.setName(noviPredmetDTO.getName());
 		predmet.setFondCasova(noviPredmetDTO.getFondCasova());
 		predmet.setRazred(noviPredmetDTO.getRazred());
 		predmetRepositories.save(predmet);
-		return new ResponseEntity<>(predmet, HttpStatus.OK);
+		return predmet;
 	}
 
 	@Override
-	public ResponseEntity<?> brisanjePredmeta(Long id) {
-		Optional<PredmetEntity> predmet = predmetRepositories.findById(id);
-		if (predmet.isPresent()) {
-			predmetRepositories.delete(predmet.get());
-			return new ResponseEntity<>(predmet,HttpStatus.OK);
+	public PredmetEntity brisanjePredmeta(Long id) {
+		PredmetEntity predmet = predmetRepositories.findById(id).get();
+		if (predmet !=null) {
+			predmetRepositories.delete(predmet);
+			return predmet;
 		}
-		return new ResponseEntity<>("Ne postoji predmet sa ovim id-jem ili je vec obrisan",HttpStatus.INTERNAL_SERVER_ERROR );
+		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> izmenaPredmeta(PredmetDTO novPredmetDTO, Long id) {
-		Optional<PredmetEntity> predmet = predmetRepositories.findById(id);
-		if(predmet.isPresent()) {
-			predmet.get().setName(novPredmetDTO.getName());
-			predmet.get().setRazred(novPredmetDTO.getRazred());
-			predmet.get().setFondCasova(novPredmetDTO.getFondCasova());
-			predmetRepositories.save(predmet.get());
-			return new ResponseEntity<>(predmet,HttpStatus.OK);
+	public PredmetEntity izmenaPredmeta(PredmetDTO novPredmetDTO, Long id) {
+		PredmetEntity predmet = predmetRepositories.findById(id).get();
+		if(predmet != null) {
+			predmet.setName(novPredmetDTO.getName());
+			predmet.setRazred(novPredmetDTO.getRazred());
+			predmet.setFondCasova(novPredmetDTO.getFondCasova());
+			predmetRepositories.save(predmet);
+			return predmet;
 		}
-		return new ResponseEntity<>("Ne postoji predmet sa ovim id-jem",HttpStatus.INTERNAL_SERVER_ERROR );
+		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> pronadjiPredmetPoIdju(Long id) {
-		Optional<PredmetEntity> predmet = predmetRepositories.findById(id);
-		if(predmet.isPresent()) {
-			return new ResponseEntity<>(predmet,HttpStatus.OK);
+	public PredmetEntity pronadjiPredmetPoIdju(Long id) {
+		PredmetEntity predmet = predmetRepositories.findById(id).get();
+		if(predmet != null) {
+			return predmet;
 		}
-		return new ResponseEntity<>("Ne postoji predmet sa ovim id-jem",HttpStatus.INTERNAL_SERVER_ERROR );
+		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> pronadjiSvePredmete() {
-		Iterable<PredmetEntity> predmet = predmetRepositories.findAll();
-		return new ResponseEntity<>(predmet,HttpStatus.OK);
+	public Iterable<PredmetEntity> pronadjiSvePredmete() {
+		Iterable<PredmetEntity> predmeti = predmetRepositories.findAll();
+		return predmeti;
 	}
 
 }

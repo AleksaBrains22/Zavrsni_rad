@@ -14,73 +14,84 @@ import com.iktpreobuka.backend.entities.NastavnikEntity;
 import com.iktpreobuka.backend.entities.RoditeljEntity;
 import com.iktpreobuka.backend.entities.UcenikEntity;
 import com.iktpreobuka.backend.entities.Uloga;
+import com.iktpreobuka.backend.entities.UlogaEntity;
 import com.iktpreobuka.backend.repositories.KorisnikRepositories;
+import com.iktpreobuka.backend.repositories.UlogaRepositories;
 import com.iktpreobuka.backend.util.PasswordEncryption;
 
 @Service
 public class KorisnikServiceImpl implements KorisnikService {
-	@Autowired
+	@Autowired	
 	private KorisnikRepositories repositories;
-
+	@Autowired
+	private UlogaRepositories ulogaRepositories;
+	
+	
+	
 	@Override
-	public ResponseEntity<?> createNewUser(KorisnikDTO noviKorisnik) {
+	public KorisnikEntity createNewUser(KorisnikDTO noviKorisnik) {
 		Uloga uloga = noviKorisnik.getUloga();
 		switch (uloga) {
 		case ADMIN:
 			AdminEntity admin = new AdminEntity();
+			UlogaEntity ulogaAdmin = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
 			admin.setIme(noviKorisnik.getIme());
 			admin.setPrezime(noviKorisnik.getPrezime());
 			admin.setUsername(noviKorisnik.getUsername());
 			admin.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
-			admin.setEmail(noviKorisnik.getEmail());
+			admin.setEmail(noviKorisnik.getEmail());			
+			admin.setUloga(ulogaAdmin);
 			repositories.save(admin);
-			return new ResponseEntity<AdminEntity>(admin, HttpStatus.OK);
+			return admin;
 		case RODITELJ:
 			RoditeljEntity roditelj = new RoditeljEntity();
+			UlogaEntity ulogaRoditelj = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
 			roditelj.setIme(noviKorisnik.getIme());
 			roditelj.setPrezime(noviKorisnik.getPrezime());
 			roditelj.setUsername(noviKorisnik.getUsername());
 			roditelj.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
 			roditelj.setEmail(noviKorisnik.getEmail());
+			roditelj.setUloga(ulogaRoditelj);
 			repositories.save(roditelj);
-			return new ResponseEntity<RoditeljEntity>(roditelj, HttpStatus.OK);
+			return roditelj;
 		case UCENIK:
 			UcenikEntity ucenik = new UcenikEntity();
+			UlogaEntity ulogaUcenik = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
 			ucenik.setIme(noviKorisnik.getIme());
 			ucenik.setPrezime(noviKorisnik.getPrezime());
 			ucenik.setUsername(noviKorisnik.getUsername());
 			ucenik.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
+			ucenik.setUloga(ulogaUcenik);
 			repositories.save(ucenik);
-			return new ResponseEntity<UcenikEntity>(ucenik, HttpStatus.OK);
+			return ucenik;
 		case NASTAVNIK:
 			NastavnikEntity nastavnik = new NastavnikEntity();
+			UlogaEntity ulogaNastavnik = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
 			nastavnik.setIme(noviKorisnik.getIme());
 			nastavnik.setPrezime(noviKorisnik.getPrezime());
 			nastavnik.setUsername(noviKorisnik.getUsername());
 			nastavnik.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
 			nastavnik.setEmail(noviKorisnik.getEmail());
+			nastavnik.setUloga(ulogaNastavnik);
 			repositories.save(nastavnik);
-			return new ResponseEntity<NastavnikEntity>(nastavnik, HttpStatus.OK);
+			return nastavnik;
 		}
-		return new ResponseEntity<String>("Korisnik sa tom ulogom ne postoji", HttpStatus.BAD_REQUEST);
+		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> findUserbyId(Long id) {
+	public KorisnikEntity findUserbyId(Long id) {
 		Optional<KorisnikEntity> korisnik = repositories.findById(id);
-		if (!korisnik.isPresent()) {
-			return new ResponseEntity<>("User sa tim ID brojem ne postoji", HttpStatus.BAD_REQUEST);
-		}	
-		return new ResponseEntity<>(korisnik,HttpStatus.OK);
+		return korisnik.get();
 	}
 
 	@Override
-	public ResponseEntity<?> brisanjeKorisnika(Long id) {
+	public KorisnikEntity brisanjeKorisnika(Long id) {
 		Optional<KorisnikEntity> korisnik = repositories.findById(id);
 		if (korisnik.isPresent()) {
 			repositories.delete(korisnik.get());
-		return new ResponseEntity<>(korisnik,HttpStatus.OK);
+
 		}
-		return new ResponseEntity<>("User sa tim ID brojem ne postoji ili je vec obrisan", HttpStatus.INTERNAL_SERVER_ERROR);
+		return korisnik.get();
 	}
 }

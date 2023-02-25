@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iktpreobuka.backend.dto.KorisnikDTO;
+import com.iktpreobuka.backend.entities.KorisnikEntity;
 import com.iktpreobuka.backend.services.KorisnikServiceImpl;
 
 @RestController
@@ -29,25 +30,32 @@ public class KorisnikControler {
 	private KorisnikServiceImpl korisnikServiceImpl;
 
 	@RequestMapping(method = RequestMethod.POST, path = "/newUser")
-	public ResponseEntity<?> newUser(@Valid @RequestBody KorisnikDTO newKorisnikEntity) {
-		return korisnikServiceImpl.createNewUser(newKorisnikEntity);
+	public ResponseEntity<KorisnikDTO> newUser(@Valid @RequestBody KorisnikDTO newKorisnikEntity) {
+		korisnikServiceImpl.createNewUser(newKorisnikEntity);
+		return new ResponseEntity<KorisnikDTO>(newKorisnikEntity, HttpStatus.CREATED);
 	}
-	@RequestMapping(method =RequestMethod.GET , path = "/{id}")
-	public ResponseEntity<?> findUserById(@PathVariable Long id){
-		return korisnikServiceImpl.findUserbyId(id);
+
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	public ResponseEntity<?> findUserById(@PathVariable Long id) {
+		try {
+			KorisnikEntity korisnik = korisnikServiceImpl.findUserbyId(id);
+			return new ResponseEntity<>(korisnik, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("korisnik ne postoji", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-	
+
 	@RequestMapping(method = RequestMethod.DELETE, path = "/obrisiKorisnika/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable Long id){
-		return korisnikServiceImpl.brisanjeKorisnika(id);
+	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+		try {
+			KorisnikEntity korinik = korisnikServiceImpl.brisanjeKorisnika(id);
+			return new ResponseEntity<>(korinik, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("korisnik ne postoji ili je vec obrisan", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-	
-	
-	
-	
-	
-	
-		
+
+
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleException(MethodArgumentNotValidException ex) {

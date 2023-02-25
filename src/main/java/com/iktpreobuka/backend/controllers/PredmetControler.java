@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iktpreobuka.backend.dto.PredmetDTO;
+import com.iktpreobuka.backend.entities.PredmetEntity;
 import com.iktpreobuka.backend.services.PredmetServiceImpl;
 
 @RestController
@@ -27,34 +28,58 @@ import com.iktpreobuka.backend.services.PredmetServiceImpl;
 public class PredmetControler {
 	@Autowired
 	private PredmetServiceImpl predmetServiceImpl;
-	
-	
-	
+
 	@RequestMapping(method = RequestMethod.POST, path = "/novipredmet")
 	ResponseEntity<?> noviPredmet(@Valid @RequestBody PredmetDTO noviPredmetDTO) {
-		return predmetServiceImpl.novipredmet(noviPredmetDTO);
-	}
-	
-	@RequestMapping(method = RequestMethod.DELETE, path ="/obrisipredmet/{id}")
-	ResponseEntity<?> obrisiPredmet(@PathVariable Long id){
-		return predmetServiceImpl.brisanjePredmeta(id);
-	}
-	
-	@RequestMapping(method = RequestMethod.PUT, path = "/izmenaPredmeta/{id}")
-	ResponseEntity<?> izmenaPredmeta(@Valid @RequestBody PredmetDTO noviPredmetDTO , @PathVariable Long id) {
-		return predmetServiceImpl.izmenaPredmeta(noviPredmetDTO , id);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
-	ResponseEntity<?> pronadjiPredmetPoIdju(@PathVariable Long id) {
-		return predmetServiceImpl.pronadjiPredmetPoIdju(id);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<?> pronadjiSvePredmete() {
-		return predmetServiceImpl.pronadjiSvePredmete();
+		PredmetEntity noviPredmet = predmetServiceImpl.novipredmet(noviPredmetDTO);
+		return new ResponseEntity<>(noviPredmet, HttpStatus.CREATED);
 	}
 
+	@RequestMapping(method = RequestMethod.DELETE, path = "/obrisipredmet/{id}")
+	ResponseEntity<?> obrisiPredmet(@PathVariable Long id) {
+		try {
+			PredmetEntity obrisiPredmet = predmetServiceImpl.brisanjePredmeta(id);
+			if (obrisiPredmet != null)
+				return new ResponseEntity<>(obrisiPredmet, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+		}
+		return new ResponseEntity<>("Predmet je obrisan ili nije dobar id", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, path = "/izmenaPredmeta/{id}")
+	ResponseEntity<?> izmenaPredmeta(@Valid @RequestBody PredmetDTO noviPredmetDTO, @PathVariable Long id) {
+		try {
+			PredmetEntity updejtujPredmet = predmetServiceImpl.izmenaPredmeta(noviPredmetDTO, id);
+			if (updejtujPredmet != null)
+				return new ResponseEntity<>(updejtujPredmet, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+
+		}
+		return new ResponseEntity<>("Ne postoji predmet sa ovim idjem", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	ResponseEntity<?> pronadjiPredmetPoIdju(@PathVariable Long id) {
+		try {
+			PredmetEntity pronadjiPredmetPoIdju = predmetServiceImpl.pronadjiPredmetPoIdju(id);
+			if (pronadjiPredmetPoIdju != null)
+				return new ResponseEntity<>(pronadjiPredmetPoIdju, HttpStatus.OK);
+		} catch (Exception e) {
+
+		}
+		return new ResponseEntity<>("Ne postoji predmet sa ovim idjem", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	ResponseEntity<?> pronadjiSvePredmete() {
+		try {
+			Iterable<PredmetEntity> sviPredmeti = predmetServiceImpl.pronadjiSvePredmete();
+			if (sviPredmeti != null)
+				return new ResponseEntity<>(sviPredmeti, HttpStatus.OK);
+		} catch (Exception e) {
+		}
+		return new ResponseEntity<>("Nema predmeta", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

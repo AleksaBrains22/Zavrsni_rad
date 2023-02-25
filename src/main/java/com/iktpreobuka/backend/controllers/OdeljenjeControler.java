@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iktpreobuka.backend.dto.OdeljenjeDTO;
+import com.iktpreobuka.backend.entities.OdeljenjeEntity;
 import com.iktpreobuka.backend.services.OdeljenjeServiceImpl;
 
 @RestController
@@ -30,7 +31,14 @@ public class OdeljenjeControler {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/novoOdeljnje/{id}")
 	public ResponseEntity<?> novoOdeljenje(@Valid @RequestBody OdeljenjeDTO odeljenjeDTO, @PathVariable Long id) {
-		return odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO , id);
+		try {
+			OdeljenjeEntity odeljenje = odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO, id);
+			if (odeljenje.getNastavnik() != null) 
+				return new ResponseEntity<>(odeljenje, HttpStatus.CREATED);			
+		} catch (Exception e) {
+			return new ResponseEntity<>("Pogresan ID nastavnika", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
