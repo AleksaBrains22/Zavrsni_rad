@@ -1,6 +1,5 @@
 package com.iktpreobuka.backend.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +32,11 @@ public class UlogaServiceImpl implements UlogaService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public UlogaEntity findByUloga(Uloga uloga) {
+		return ulogaRepository.findByUloga(uloga);
 	}
 
 }

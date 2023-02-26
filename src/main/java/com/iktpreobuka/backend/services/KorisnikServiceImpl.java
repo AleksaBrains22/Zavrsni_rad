@@ -3,8 +3,7 @@ package com.iktpreobuka.backend.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import com.iktpreobuka.backend.dto.KorisnikDTO;
@@ -16,7 +15,7 @@ import com.iktpreobuka.backend.entities.UcenikEntity;
 import com.iktpreobuka.backend.entities.Uloga;
 import com.iktpreobuka.backend.entities.UlogaEntity;
 import com.iktpreobuka.backend.repositories.KorisnikRepositories;
-import com.iktpreobuka.backend.repositories.UlogaRepositories;
+
 import com.iktpreobuka.backend.util.PasswordEncryption;
 
 @Service
@@ -24,7 +23,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 	@Autowired	
 	private KorisnikRepositories repositories;
 	@Autowired
-	private UlogaRepositories ulogaRepositories;
+	private UlogaServiceImpl ulogaServiceImpl;
 	
 	
 	
@@ -34,7 +33,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 		switch (uloga) {
 		case ADMIN:
 			AdminEntity admin = new AdminEntity();
-			UlogaEntity ulogaAdmin = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
+			UlogaEntity ulogaAdmin = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
 			admin.setIme(noviKorisnik.getIme());
 			admin.setPrezime(noviKorisnik.getPrezime());
 			admin.setUsername(noviKorisnik.getUsername());
@@ -45,7 +44,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return admin;
 		case RODITELJ:
 			RoditeljEntity roditelj = new RoditeljEntity();
-			UlogaEntity ulogaRoditelj = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
+			UlogaEntity ulogaRoditelj = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
 			roditelj.setIme(noviKorisnik.getIme());
 			roditelj.setPrezime(noviKorisnik.getPrezime());
 			roditelj.setUsername(noviKorisnik.getUsername());
@@ -56,7 +55,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return roditelj;
 		case UCENIK:
 			UcenikEntity ucenik = new UcenikEntity();
-			UlogaEntity ulogaUcenik = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
+			UlogaEntity ulogaUcenik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
 			ucenik.setIme(noviKorisnik.getIme());
 			ucenik.setPrezime(noviKorisnik.getPrezime());
 			ucenik.setUsername(noviKorisnik.getUsername());
@@ -66,7 +65,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return ucenik;
 		case NASTAVNIK:
 			NastavnikEntity nastavnik = new NastavnikEntity();
-			UlogaEntity ulogaNastavnik = ulogaRepositories.findByUloga(noviKorisnik.getUloga());
+			UlogaEntity ulogaNastavnik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
 			nastavnik.setIme(noviKorisnik.getIme());
 			nastavnik.setPrezime(noviKorisnik.getPrezime());
 			nastavnik.setUsername(noviKorisnik.getUsername());
@@ -94,4 +93,22 @@ public class KorisnikServiceImpl implements KorisnikService {
 		}
 		return korisnik.get();
 	}
+
+	@Override
+	public KorisnikEntity updateKorisnika(KorisnikDTO updejtovanKorisnik, Long id) {
+			Optional<KorisnikEntity> korisnik = repositories.findById(id);
+			if(korisnik.isPresent()) {
+				KorisnikEntity izmenjenKorisnik = korisnik.get();
+				izmenjenKorisnik.setIme(updejtovanKorisnik.getIme());
+				izmenjenKorisnik.setPrezime(updejtovanKorisnik.getPrezime());
+				izmenjenKorisnik.setUsername(updejtovanKorisnik.getUsername());
+				izmenjenKorisnik.setPassword(PasswordEncryption.getPassEncoded(updejtovanKorisnik.getPassword()));
+				izmenjenKorisnik.setEmail(updejtovanKorisnik.getEmail());
+		        UlogaEntity uloga = ulogaServiceImpl.findByUloga(updejtovanKorisnik.getUloga());
+		        izmenjenKorisnik.setUloga(uloga);
+		        repositories.save(izmenjenKorisnik);
+		        return izmenjenKorisnik;
+			}
+			return null;
+		}
 }

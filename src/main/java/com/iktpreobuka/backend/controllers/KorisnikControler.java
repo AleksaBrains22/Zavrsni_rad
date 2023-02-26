@@ -34,6 +34,18 @@ public class KorisnikControler {
 		korisnikServiceImpl.createNewUser(newKorisnikEntity);
 		return new ResponseEntity<KorisnikDTO>(newKorisnikEntity, HttpStatus.CREATED);
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.PUT, path = "/updejtovanKorisnik/{id}")
+	public ResponseEntity<?> updejtujKorisnika(@Valid @RequestBody KorisnikDTO updejtovanKorisnik,@PathVariable Long id) {
+		try {
+		KorisnikEntity korisnik =korisnikServiceImpl.updateKorisnika(updejtovanKorisnik, id);
+		return new ResponseEntity<>(korisnik, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Pogresan unos ID-ja", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
@@ -54,6 +66,14 @@ public class KorisnikControler {
 			return new ResponseEntity<>("korisnik ne postoji ili je vec obrisan", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
