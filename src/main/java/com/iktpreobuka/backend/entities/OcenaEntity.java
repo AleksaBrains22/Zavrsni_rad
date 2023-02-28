@@ -12,7 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class OcenaEntity {
@@ -22,18 +23,56 @@ public class OcenaEntity {
 	private Long id;
 	@Min(1)
 	@Max(5)
-	private String ocena;
+	private Integer ocena;
 	@Column
 	private Razred razred;
 
-	@JsonBackReference
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Integer getOcena() {
+		return ocena;
+	}
+	public void setOcena(Integer ocena) {
+		this.ocena = ocena;
+	}
+	public Razred getRazred() {
+		return razred;
+	}
+	public void setRazred(Razred razred) {
+		this.razred = razred;
+	}
+	public PredmetEntity getPredmet() {
+		return predmet;
+	}
+	public void setPredmet(PredmetEntity predmet) {
+		this.predmet = predmet;
+	}
+	public UcenikEntity getUcenik() {
+		return ucenik;
+	}
+	public void setUcenik(UcenikEntity ucenik) {
+		this.ucenik = ucenik;
+	}
+	public NastavnikEntity getNastavnik() {
+		return nastavnik;
+	}
+	public void setNastavnik(NastavnikEntity nastavnik) {
+		this.nastavnik = nastavnik;
+	}
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "id_predmeta_iz_koga_je_ocena")
 	private PredmetEntity predmet;
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "id_ucenika_koj_je_dobio_ocenu")
 	private UcenikEntity ucenik;
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "id_nastavnika_koji_je_dao_ocenu")
 	private NastavnikEntity nastavnik;

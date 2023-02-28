@@ -19,40 +19,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iktpreobuka.backend.dto.OdeljenjeDTO;
-import com.iktpreobuka.backend.entities.OdeljenjeEntity;
-import com.iktpreobuka.backend.services.OdeljenjeServiceImpl;
+import com.iktpreobuka.backend.entities.OcenaEntity;
+import com.iktpreobuka.backend.services.OcenaServiceImpl;
 
 @RestController
-@RequestMapping(path = "api/v1/odeljenje")
-public class OdeljenjeControler {
+@RequestMapping("api/v1/ocena")
+public class OcenaControler {
 	@Autowired
-	private OdeljenjeServiceImpl odeljenjeServiceImpl;
+	private OcenaServiceImpl ocenaServiceImpl;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/novoOdeljnje/{id}")
-	public ResponseEntity<?> novoOdeljenje(@Valid @RequestBody OdeljenjeDTO odeljenjeDTO, @PathVariable Long id) {
+	@RequestMapping(method = RequestMethod.POST, path = "/novaOcena/ucenika/{ucenikId}/iz/{predmetId}/od/nastavnika/{nastavnikId}")
+	public ResponseEntity<?> novaOcena(@Valid @RequestBody OcenaEntity ocena, @PathVariable Long ucenikId,
+			@PathVariable Long predmetId, @PathVariable Long nastavnikId) {
 		try {
-			OdeljenjeEntity odeljenje = odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO, id);
-			if (odeljenje.getNastavnik() != null) 
-				return new ResponseEntity<>(odeljenje, HttpStatus.CREATED);			
+			OcenaEntity novaOcena = ocenaServiceImpl.dodajNovuOcenu(ucenikId, predmetId, nastavnikId, ocena);
+			if(novaOcena != null) {
+			return new ResponseEntity<>(novaOcena, HttpStatus.CREATED);
+			}
 		} catch (Exception e) {
-			return new ResponseEntity<>("Pogresan ID nastavnika", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Nije dobar zahtev", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
+		return new ResponseEntity<>("Nije dobar zahtev", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
 	
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public ResponseEntity<?> nadjiOdeljenje(@PathVariable Long id) {
-		try {
-			OdeljenjeEntity odeljenje = odeljenjeServiceImpl.nadjiOdeljenjePOIdju(id);
-			if (odeljenje != null) 
-				return new ResponseEntity<>(odeljenje, HttpStatus.OK);			
-		} catch (Exception e) {
-			return new ResponseEntity<>("Nema odeljenja sa tim Id-jem", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return null;
-	}
+	
+	
 	
 	
 	

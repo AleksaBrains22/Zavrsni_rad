@@ -7,5 +7,6 @@ import com.iktpreobuka.backend.entities.OdeljenjeEntity;
 public interface OdeljenjeService {
 
 	public OdeljenjeEntity novoOdeljeEntity(OdeljenjeDTO novoOdeljenjeDTO , Long id);
+	public OdeljenjeEntity nadjiOdeljenjePOIdju(Long odeljenjeId);
 	
 }

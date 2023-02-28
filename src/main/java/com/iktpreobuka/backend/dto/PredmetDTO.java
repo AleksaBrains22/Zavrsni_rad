@@ -24,6 +24,7 @@ public class PredmetDTO {
 	private Razred razred;
 	@javax.persistence.Version
 	private Integer version;
+	
 
 	public Long getId() {
 		return id;

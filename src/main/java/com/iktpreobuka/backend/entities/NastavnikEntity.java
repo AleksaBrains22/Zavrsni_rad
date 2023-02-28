@@ -14,17 +14,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @DiscriminatorValue(value = "Nastavnik")
 public class NastavnikEntity extends KorisnikEntity {
-
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<OdeljenjeEntity> odeljenjeEntities = new ArrayList<>();
-
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<OcenaEntity> ocena = new ArrayList<>();
 	
@@ -32,6 +31,33 @@ public class NastavnikEntity extends KorisnikEntity {
 	@JoinTable(name = "Predmet_id", joinColumns = {
 			@JoinColumn(name = "Nastavnik_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "Predmet_id", nullable = false, updatable = false) })
-	protected Set<PredmetEntity> categories = new HashSet<PredmetEntity>();
+	protected Set<PredmetEntity> predmetKojNastavnikpredaje = new HashSet<PredmetEntity>();
+	@JsonIgnore
+	public List<OdeljenjeEntity> getOdeljenjeEntities() {
+		return odeljenjeEntities;
+	}
+	@JsonIgnore
+	public void setOdeljenjeEntities(List<OdeljenjeEntity> odeljenjeEntities) {
+		this.odeljenjeEntities = odeljenjeEntities;
+	}
+	@JsonIgnore
+	public List<OcenaEntity> getOcena() {
+		return ocena;
+	}
+	@JsonIgnore
+	public void setOcena(List<OcenaEntity> ocena) {
+		this.ocena = ocena;
+	}
+
+
+	@JsonIgnore
+	public Set<PredmetEntity> getPredmetKojNastavnikpredaje() {
+		return predmetKojNastavnikpredaje;
+	}
+
+	public void setPredmetKojNastavnikpredaje(Set<PredmetEntity> predmetKojNastavnikpredaje) {
+		this.predmetKojNastavnikpredaje = predmetKojNastavnikpredaje;
+	}
+	
 
 }

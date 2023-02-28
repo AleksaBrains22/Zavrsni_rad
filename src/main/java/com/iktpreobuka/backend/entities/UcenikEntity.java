@@ -11,21 +11,53 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @DiscriminatorValue("Ucenik")
 public class UcenikEntity extends KorisnikEntity{
 	
-	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "roditelj_id")
 	private RoditeljEntity roditelj;
-	@JsonManagedReference
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<ZakljucnaOcenaEntity> zakljucnaOcena = new ArrayList<>();
-	@JsonManagedReference
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JsonIgnore
 	private List<OcenaEntity> ocena = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "odeljenje_id")
+	private OdeljenjeEntity odeljenjeEntity;
+	@JsonIgnore
+	public RoditeljEntity getRoditelj() {
+		return roditelj;
+	}
+	@JsonIgnore
+	public void setRoditelj(RoditeljEntity roditelj) {
+		this.roditelj = roditelj;
+	}
+	public List<ZakljucnaOcenaEntity> getZakljucnaOcena() {
+		return zakljucnaOcena;
+	}
+	public void setZakljucnaOcena(List<ZakljucnaOcenaEntity> zakljucnaOcena) {
+		this.zakljucnaOcena = zakljucnaOcena;
+	}
+	@JsonIgnore
+	public List<OcenaEntity> getOcena() {
+		return ocena;
+	}
+	@JsonIgnore
+	public void setOcena(List<OcenaEntity> ocena) {
+		this.ocena = ocena;
+	}
+	public OdeljenjeEntity getOdeljenjeEntity() {
+		return odeljenjeEntity;
+	}
+	public void setOdeljenjeEntity(OdeljenjeEntity odeljenjeEntity) {
+		this.odeljenjeEntity = odeljenjeEntity;
+	}
+	
+	
+	
 }

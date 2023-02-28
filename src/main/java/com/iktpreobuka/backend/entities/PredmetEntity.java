@@ -41,11 +41,10 @@ public class PredmetEntity {
 	private Razred razred;
 	@javax.persistence.Version
 	private Integer version;
-	@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<ZakljucnaOcenaEntity> zakljucnaOcena = new ArrayList<>();
-	@JsonManagedReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<OcenaEntity> ocena = new ArrayList<>();
@@ -54,7 +53,7 @@ public class PredmetEntity {
 	@JoinTable(name = "Nastavnik_id", joinColumns = {
 			@JoinColumn(name = "Predmet_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "Nastavnik_id", nullable = false, updatable = false) })
-	protected Set<NastavnikEntity> nastavik = new HashSet<NastavnikEntity>();
+	protected Set<NastavnikEntity> nastavnikPredajeOvajPredmet = new HashSet<NastavnikEntity>();
 
 	public Long getId() {
 		return id;
@@ -95,11 +94,11 @@ public class PredmetEntity {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	@JsonIgnore
+	
 	public List<ZakljucnaOcenaEntity> getZakljucnaOcena() {
 		return zakljucnaOcena;
 	}
-	@JsonIgnore
+	
 	public void setZakljucnaOcena(List<ZakljucnaOcenaEntity> zakljucnaOcena) {
 		this.zakljucnaOcena = zakljucnaOcena;
 	}
@@ -113,11 +112,11 @@ public class PredmetEntity {
 	}
 	@JsonIgnore
 	public Set<NastavnikEntity> getNastavnik() {
-		return nastavik;
+		return nastavnikPredajeOvajPredmet;
 	}
-	@JsonIgnore
+	
 	public void setNastavnik(Set<NastavnikEntity> nastavik) {
-		this.nastavik = nastavik;
+		this.nastavnikPredajeOvajPredmet = nastavik;
 	}
 
 	public PredmetEntity(Long id, @NotNull(message = "ne moze biti prazno polje") String name,
@@ -132,12 +131,21 @@ public class PredmetEntity {
 		this.version = version;
 		this.zakljucnaOcena = zakljucnaOcena;
 		this.ocena = ocena;
-		this.nastavik = nastavik;
+		this.nastavnikPredajeOvajPredmet = nastavik;
+	}
+
+	public Set<NastavnikEntity> getNastavniciKojiPredajuOvajPredmet() {
+		return nastavnikPredajeOvajPredmet;
+	}
+
+	public void setUpisiNastavnikaUpredmet(Set<NastavnikEntity> upisiNastavnikaUpredmet) {
+		this.nastavnikPredajeOvajPredmet = upisiNastavnikaUpredmet;
 	}
 
 	public PredmetEntity() {
 		super();
 	}
+
 	
 	
 }

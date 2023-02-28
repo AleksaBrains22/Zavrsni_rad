@@ -24,7 +24,9 @@ public class KorisnikServiceImpl implements KorisnikService {
 	private KorisnikRepositories repositories;
 	@Autowired
 	private UlogaServiceImpl ulogaServiceImpl;
-	
+	@Autowired
+	private RoditeljServiceImpl roditeljServiceImpl;
+
 	
 	
 	@Override
@@ -54,15 +56,24 @@ public class KorisnikServiceImpl implements KorisnikService {
 			repositories.save(roditelj);
 			return roditelj;
 		case UCENIK:
-			UcenikEntity ucenik = new UcenikEntity();
-			UlogaEntity ulogaUcenik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
-			ucenik.setIme(noviKorisnik.getIme());
-			ucenik.setPrezime(noviKorisnik.getPrezime());
-			ucenik.setUsername(noviKorisnik.getUsername());
-			ucenik.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
-			ucenik.setUloga(ulogaUcenik);
-			repositories.save(ucenik);
-			return ucenik;
+	        UcenikEntity ucenik = new UcenikEntity();
+	        UlogaEntity ulogaUcenik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
+	        ucenik.setIme(noviKorisnik.getIme());
+	        ucenik.setPrezime(noviKorisnik.getPrezime());
+	        ucenik.setUsername(noviKorisnik.getUsername());
+	        ucenik.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
+	        ucenik.setUloga(ulogaUcenik);
+
+	        if (noviKorisnik.getOdeljenje() != null && noviKorisnik.getRoditelj() != null) {
+	            RoditeljEntity roditeljUcenika = roditeljServiceImpl.nadjiRoditeljaPoIdju(noviKorisnik.getRoditelj().getId());
+	            ucenik.setRoditelj(roditeljUcenika);
+	            ucenik.setOdeljenjeEntity(noviKorisnik.getOdeljenje());
+	        }
+
+	        repositories.save(ucenik);
+	        return ucenik;
+
+
 		case NASTAVNIK:
 			NastavnikEntity nastavnik = new NastavnikEntity();
 			UlogaEntity ulogaNastavnik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());

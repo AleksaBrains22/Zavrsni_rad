@@ -28,4 +28,10 @@ public class OdeljenjeServiceImpl implements OdeljenjeService {
 		return null;
 	}
 
+	@Override
+	public OdeljenjeEntity nadjiOdeljenjePOIdju(Long odeljenjeId) {
+		OdeljenjeEntity odeljenje = odeljenjeRepositories.findById(odeljenjeId).get();
+		return odeljenje;
+	}
+
 }

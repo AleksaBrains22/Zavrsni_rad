@@ -6,4 +6,5 @@ public interface NastavnikService {
 	
 	public NastavnikEntity findById(Long id);
 	
+	public NastavnikEntity nastavnikPredajePredmet( Long predmetId, Long nastavnikId);
 }
