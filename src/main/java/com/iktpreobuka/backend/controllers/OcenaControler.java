@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iktpreobuka.backend.entities.OcenaEntity;
+import com.iktpreobuka.backend.models.EmailObject;
+import com.iktpreobuka.backend.services.EmailServiceImpl;
 import com.iktpreobuka.backend.services.OcenaServiceImpl;
 
 @RestController
@@ -27,11 +29,14 @@ import com.iktpreobuka.backend.services.OcenaServiceImpl;
 public class OcenaControler {
 	@Autowired
 	private OcenaServiceImpl ocenaServiceImpl;
-
+	@Autowired
+	private EmailServiceImpl emailServiceImpl;
+	
 	@RequestMapping(method = RequestMethod.POST, path = "/novaOcena/ucenika/{ucenikId}/iz/{predmetId}/od/nastavnika/{nastavnikId}")
 	public ResponseEntity<?> novaOcena(@Valid @RequestBody OcenaEntity ocena, @PathVariable Long ucenikId,
 			@PathVariable Long predmetId, @PathVariable Long nastavnikId) {
 		try {
+			
 			OcenaEntity novaOcena = ocenaServiceImpl.dodajNovuOcenu(ucenikId, predmetId, nastavnikId, ocena);
 			if(novaOcena != null) {
 			return new ResponseEntity<>(novaOcena, HttpStatus.CREATED);
@@ -42,7 +47,14 @@ public class OcenaControler {
 		return new ResponseEntity<>("Nije dobar zahtev", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	
+	@RequestMapping(method = RequestMethod.POST , value="/novaOcena")
+	public ResponseEntity<?> sendSimpleMessage(@RequestBody EmailObject object) {
+		if (object == null || object.getText() == null || object.getTo() == null) {
+			return new ResponseEntity<>("NijeDobroPoslato", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		emailServiceImpl.sendSimpleMessage(object);
+		return new ResponseEntity<>("Success!", HttpStatus.OK);
+	}
 	
 	
 	
