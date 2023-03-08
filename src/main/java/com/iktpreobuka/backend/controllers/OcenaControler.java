@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iktpreobuka.backend.entities.OcenaEntity;
+import com.iktpreobuka.backend.entities.Polugodiste;
 import com.iktpreobuka.backend.entities.PredmetEntity;
 import com.iktpreobuka.backend.entities.UcenikEntity;
 import com.iktpreobuka.backend.models.EmailObject;
@@ -40,14 +42,14 @@ public class OcenaControler {
 	private EmailServiceImpl emailServiceImpl;
 	private final Logger logger = (Logger)LoggerFactory.getLogger(this.getClass())
 ;	
-	@Secured(value = { "ADMIN" })
+	@Secured(value = { "ADMIN","NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.POST, path = "/novaOcena/ucenika/{ucenikId}/iz/{predmetId}/od/nastavnika/{nastavnikId}")
 	public ResponseEntity<?> novaOcena(@Valid @RequestBody OcenaEntity ocena, @PathVariable Long ucenikId,
 			@PathVariable Long predmetId, @PathVariable Long nastavnikId) {
 		try {			
 			OcenaEntity novaOcena = ocenaServiceImpl.dodajNovuOcenu(ucenikId, predmetId, nastavnikId, ocena);
 			if(novaOcena != null) {
-				logger.error("Ocena je upisana u e-dnevnik");
+				logger.info("Ocena je upisana u e-dnevnik");
 			return new ResponseEntity<>(novaOcena, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
@@ -57,7 +59,7 @@ public class OcenaControler {
 		return new ResponseEntity<>("Nije dobar zahtev", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@Secured(value = { "ADMIN" })
+	@Secured(value = { "ADMIN" ,"NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.POST , value="/novaOcena")
 	public ResponseEntity<?> sendSimpleMessage(@RequestBody EmailObject object) {
 		if (object == null || object.getText() == null || object.getTo() == null) {
@@ -69,8 +71,8 @@ public class OcenaControler {
 		return new ResponseEntity<>("Success!", HttpStatus.OK);
 	}
 	
-	@Secured(value = { "ADMIN" })
-	@RequestMapping(method = RequestMethod.GET , value="/nadjiOcene/{ucenikId}/iz/{predmetId}")
+	@Secured(value = { "ADMIN" , "NASTAVNIK" })
+	@RequestMapping(method = RequestMethod.GET , value="/nadjiOcene/{ucenikId}/izPredmeta/{predmetId}")
 	public ResponseEntity<?> nadjiSveOceneUcenikaizJednogPredmeta(@PathVariable UcenikEntity ucenikId, @PathVariable PredmetEntity predmetId){
 		try {
 			List<OcenaEntity> ocene =(List<OcenaEntity>) ocenaServiceImpl.nadjiSveOceneUcenikaizJednogPredmeta(ucenikId,predmetId);
@@ -97,6 +99,25 @@ public class OcenaControler {
 			}
 	
 	}
+	
+	
+	@Secured(value = { "ADMIN","RODITELJ","NASTAVNIK","UCENIK" })
+	@RequestMapping(method = RequestMethod.GET , value="/nadjiOcene/zaUcenika/{ucenikId}/zaPredmet/{predmetId}")
+	public ResponseEntity<?> pronadjiPoUcenikuIPredmetiIPolugodistuOcenu(@PathVariable UcenikEntity ucenikId,@PathVariable PredmetEntity predmetId,@RequestParam String polugodiste){
+		try {
+			List<OcenaEntity> ocene =(List<OcenaEntity>) ocenaServiceImpl.pronadjiPoUcenikuIPredmetiIPolugodistuOcenu(ucenikId, predmetId, polugodiste);
+			logger.info("vracene su ocene za odabrano polugodje za odabrani predmet i ucenika");
+			return new ResponseEntity<>(ocene, HttpStatus.OK);
+		}catch (Exception e) {
+			logger.info("nije dobar id ucenika ili nema ocena za to polugodiste");	
+			return new ResponseEntity<>("NijeDobroPoslato", HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+	
+	}
+	
+	
+	
+	
 	
 	
 	@Secured(value = { "ADMIN" })

@@ -67,7 +67,7 @@ public class PredmetControler {
 		logger.warn("Ne postoji predmet sa ovim idjem");
 		return new ResponseEntity<>("Ne postoji predmet sa ovim idjem", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@Secured(value = { "ADMIN" })
+	@Secured(value = { "ADMIN" , "NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	ResponseEntity<?> pronadjiPredmetPoIdju(@PathVariable Long id) {
 		try {
@@ -81,7 +81,7 @@ public class PredmetControler {
 		logger.warn("Ne postoji predmet sa ovim idjem");
 		return new ResponseEntity<>("Ne postoji predmet sa ovim idjem", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@Secured(value = { "ADMIN" })
+	@Secured(value = { "ADMIN","NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<?> pronadjiSvePredmete() {
 		try {

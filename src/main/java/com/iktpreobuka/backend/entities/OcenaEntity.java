@@ -3,6 +3,8 @@ package com.iktpreobuka.backend.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +28,18 @@ public class OcenaEntity {
 	private Integer ocena;
 	@Column
 	private Razred razred;
-
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	private Polugodiste polugodiste;
 	
+	@Enumerated(EnumType.ORDINAL)
+	public Polugodiste getPolugodiste() {
+		return polugodiste;
+	}
+	@Enumerated(EnumType.ORDINAL)
+	public void setPolugodiste(Polugodiste polugodiste) {
+		this.polugodiste = polugodiste;
+	}
 	public Long getId() {
 		return id;
 	}

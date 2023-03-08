@@ -27,4 +27,6 @@ public class RoditeljEntity extends KorisnikEntity{
 	public void setUcenik(List<UcenikEntity> ucenik) {
 		this.ucenik = ucenik;
 	}
+	
+	
 }

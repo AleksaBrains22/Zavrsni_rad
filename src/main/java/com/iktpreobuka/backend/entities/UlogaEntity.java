@@ -28,7 +28,7 @@ private Integer id;
 private Uloga uloga;
 
 
-	@JsonManagedReference
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<KorisnikEntity> korisnik = new ArrayList<>();

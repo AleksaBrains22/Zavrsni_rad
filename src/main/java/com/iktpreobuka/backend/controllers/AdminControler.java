@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/admin")
 public class AdminControler {
 
-	@Secured(value = { "ADMIN" })
+	@Secured(value = { "ADMIN"})
 	@RequestMapping(method = RequestMethod.GET, value = "/downloadLogs")
 	public ResponseEntity<ByteArrayResource> downloadFile() throws java.io.IOException {
 		Path path = Paths.get("logs/spring-boot-logging.log");

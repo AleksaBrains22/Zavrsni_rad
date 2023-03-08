@@ -32,6 +32,7 @@ public class OdeljenjeEntity {
 	@JoinColumn(name = "Nastavnik_id")
 	private NastavnikEntity nastavnik;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<UcenikEntity> ucenik = new ArrayList<>();
 

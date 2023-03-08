@@ -1,8 +1,6 @@
 package com.iktpreobuka.backend.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.iktpreobuka.backend.entities.NastavnikEntity;
 import com.iktpreobuka.backend.entities.OcenaEntity;
+import com.iktpreobuka.backend.entities.Polugodiste;
 import com.iktpreobuka.backend.entities.PredmetEntity;
 import com.iktpreobuka.backend.entities.UcenikEntity;
 import com.iktpreobuka.backend.models.EmailObject;
@@ -45,9 +44,17 @@ public class OcenaServiceImpl implements OcenaService {
 				novaOcena.setPredmet(predmet);
 				novaOcena.setOcena(ocena.getOcena());
 				novaOcena.setRazred(ucenik.getOdeljenjeEntity().getRazred());
+				if (ocena.getPolugodiste() == (Polugodiste.PRVO_POLUGODISTE)){
+					novaOcena.setPolugodiste(Polugodiste.PRVO_POLUGODISTE);
+					ocenaRepositories.save(novaOcena);
+					ocenasesaljenaemail(ocena, ucenik, predmet);
+					logger.info("ocena je upisana u e-dnevnik i poslata roditelju ona je iz prvog polugodista");
+					return novaOcena;
+				}else 
+				novaOcena.setPolugodiste(Polugodiste.DRUGO_POLUGODISTE);									
 				ocenaRepositories.save(novaOcena);
 				ocenasesaljenaemail(ocena, ucenik, predmet);
-				logger.info("ocena je upisana u e-dnevnik i poslata roditelju");
+				logger.info("ocena je upisana u e-dnevnik i poslata roditelju i ona je iz drugog polugodista");
 				return novaOcena;
 			}
 
@@ -59,7 +66,7 @@ public class OcenaServiceImpl implements OcenaService {
 		EmailObject emailObject = new EmailObject();
 		emailObject.setTo(ucenik.getRoditelj().getEmail());
 		emailObject.setSubject("Nova ocena");
-		emailObject.setText("Ucenik " + ucenik.getIme() + "je dobio ocenu " + ocena.getOcena() + "iz predmeta "
+		emailObject.setText("Ucenik " + ucenik.getIme() + "je dobio ocenu " + ocena.getOcena() + " iz predmeta "
 				+ predmet.getName());
 		emailServiceImpl.sendSimpleMessage(emailObject);
 		logger.info("ocena je poslata na email roditelja");
@@ -113,6 +120,14 @@ public class OcenaServiceImpl implements OcenaService {
 		}
 		logger.error("Nema ocene sa tim idjem");
 		return null;
+	}
+
+	@Override
+	public List<OcenaEntity> pronadjiPoUcenikuIPredmetiIPolugodistuOcenu(UcenikEntity ucenikId, PredmetEntity predmetId,
+			String polugodisteString) {
+		Polugodiste polugodiste = Polugodiste.valueOf(polugodisteString);
+		List<OcenaEntity> ocena = ocenaRepositories.findByUcenikAndPredmetAndPolugodiste(ucenikId, predmetId, polugodiste);
+		return ocena;
 	}
 
 }
