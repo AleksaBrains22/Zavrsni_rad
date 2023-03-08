@@ -18,6 +18,7 @@ public class KorisnikDTO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
 	@Column(name= "korisnicki_id")
 	private Long id;
 	@NotNull(message= "Ime korisnika mora biti popunjeno")
@@ -34,15 +35,15 @@ public class KorisnikDTO {
 	@Column
 	@NotNull(message="Potvrdite vasu sifru")
 	private String confirmedPassword;
-	@Column
+	@Column(name = "username", nullable = false ,unique=true)
 	@NotNull(message= "Username ne moze biti prazan")
 	@Size(min = 3, max = 30, message ="Username mora biti izmedju {min} i {max} broja slova.")
 	private String username;
 	@Column
 	@Version
 	private Integer version;
-	@Email
-	@Column(name="Email")
+	@Email	
+	@Column(name = "email")
 	private String email;
 	@NotNull(message= "Uloga ne moze biti prazna")
 	private Uloga uloga;

@@ -28,7 +28,7 @@ public class NastavnikEntity extends KorisnikEntity {
 	private List<OcenaEntity> ocena = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinTable(name = "Predmet_id", joinColumns = {
+	@JoinTable(name = "Nastavnik_koj_predaje_predmet", joinColumns = {
 			@JoinColumn(name = "Nastavnik_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "Predmet_id", nullable = false, updatable = false) })
 	protected Set<PredmetEntity> predmetKojNastavnikpredaje = new HashSet<PredmetEntity>();
@@ -52,7 +52,7 @@ public class NastavnikEntity extends KorisnikEntity {
 
 	@JsonIgnore
 	public Set<PredmetEntity> getPredmetKojNastavnikpredaje() {
-		return predmetKojNastavnikpredaje;
+		return this.predmetKojNastavnikpredaje;
 	}
 
 	public void setPredmetKojNastavnikpredaje(Set<PredmetEntity> predmetKojNastavnikpredaje) {

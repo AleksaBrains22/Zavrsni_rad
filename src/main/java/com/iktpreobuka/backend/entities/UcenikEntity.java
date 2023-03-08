@@ -26,6 +26,7 @@ public class UcenikEntity extends KorisnikEntity{
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JsonIgnore
 	private List<OcenaEntity> ocena = new ArrayList<>();
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "odeljenje_id")
 	private OdeljenjeEntity odeljenjeEntity;
@@ -43,11 +44,9 @@ public class UcenikEntity extends KorisnikEntity{
 	public void setZakljucnaOcena(List<ZakljucnaOcenaEntity> zakljucnaOcena) {
 		this.zakljucnaOcena = zakljucnaOcena;
 	}
-	@JsonIgnore
 	public List<OcenaEntity> getOcena() {
 		return ocena;
 	}
-	@JsonIgnore
 	public void setOcena(List<OcenaEntity> ocena) {
 		this.ocena = ocena;
 	}

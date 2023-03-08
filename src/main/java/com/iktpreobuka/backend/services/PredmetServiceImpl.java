@@ -1,6 +1,8 @@
 package com.iktpreobuka.backend.services;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class PredmetServiceImpl implements PredmetService {
 
 	@Autowired
 	private PredmetRepositories predmetRepositories;
+	private final Logger logger = (Logger)LoggerFactory.getLogger(this.getClass());
+
 
 	@Override
 	public PredmetEntity novipredmet(PredmetDTO noviPredmetDTO) {
@@ -22,6 +26,7 @@ public class PredmetServiceImpl implements PredmetService {
 		predmet.setFondCasova(noviPredmetDTO.getFondCasova());
 		predmet.setRazred(noviPredmetDTO.getRazred());
 		predmetRepositories.save(predmet);
+		logger.info("poslat je zahtev za cuvanje novog predmeta");
 		return predmet;
 	}
 
@@ -30,8 +35,10 @@ public class PredmetServiceImpl implements PredmetService {
 		PredmetEntity predmet = predmetRepositories.findById(id).get();
 		if (predmet !=null) {
 			predmetRepositories.delete(predmet);
+			logger.info("poslat je zahtev za brisanje predmeta");
 			return predmet;
 		}
+		logger.warn("nema predmeta za ovaj zahtev brisanja");
 		return null;
 	}
 
@@ -43,8 +50,10 @@ public class PredmetServiceImpl implements PredmetService {
 			predmet.setRazred(novPredmetDTO.getRazred());
 			predmet.setFondCasova(novPredmetDTO.getFondCasova());
 			predmetRepositories.save(predmet);
+			logger.info("poslat je zahtev za izmenu predmeta");
 			return predmet;
 		}
+		logger.warn("nema predmeta za ovaj zahtev izmene predmeta");
 		return null;
 	}
 
@@ -52,6 +61,7 @@ public class PredmetServiceImpl implements PredmetService {
 	public PredmetEntity pronadjiPredmetPoIdju(Long id) {
 		PredmetEntity predmet = predmetRepositories.findById(id).get();
 		if(predmet != null) {
+			logger.info("poslat je zahtev za trazenje predmeta po id-ju");
 			return predmet;
 		}
 		return null;
@@ -60,6 +70,7 @@ public class PredmetServiceImpl implements PredmetService {
 	@Override
 	public Iterable<PredmetEntity> pronadjiSvePredmete() {
 		Iterable<PredmetEntity> predmeti = predmetRepositories.findAll();
+		logger.info("poslat je zahtev za iscitavanje svih predmeta");
 		return predmeti;
 	}
 

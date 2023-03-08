@@ -14,15 +14,16 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Korisnici")
+@Table(name = "Korisnici", uniqueConstraints = 
+								@UniqueConstraint(columnNames = {"username"}))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Tip_Korisnika", discriminatorType = DiscriminatorType.STRING)
 
@@ -45,7 +46,7 @@ public class KorisnikEntity {
 	@JsonIgnore
 	@NotNull(message= "Password ne moze biti prazan")
 	private String password;
-	@Column
+	@Column(name = "username", nullable = false ,unique=true)
 	@NotNull(message= "Username ne moze biti prazan")
 	@Size(min = 3, max = 30, message ="Username mora biti izmedju {min} i {max} broja slova.")
 	private String username;
@@ -53,7 +54,7 @@ public class KorisnikEntity {
 	@Version
 	private Integer version;
 	@Email
-	@Column(name="Email")
+	@Column(name = "email")
 	private String email;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)

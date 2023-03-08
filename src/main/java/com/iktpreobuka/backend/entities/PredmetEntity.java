@@ -49,10 +49,7 @@ public class PredmetEntity {
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	private List<OcenaEntity> ocena = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinTable(name = "Nastavnik_id", joinColumns = {
-			@JoinColumn(name = "Predmet_id", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "Nastavnik_id", nullable = false, updatable = false) })
+	@ManyToMany(mappedBy = "predmetKojNastavnikpredaje")
 	protected Set<NastavnikEntity> nastavnikPredajeOvajPredmet = new HashSet<NastavnikEntity>();
 
 	public Long getId() {

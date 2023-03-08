@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,34 +30,34 @@ import com.iktpreobuka.backend.services.OdeljenjeServiceImpl;
 public class OdeljenjeControler {
 	@Autowired
 	private OdeljenjeServiceImpl odeljenjeServiceImpl;
+	private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping(method = RequestMethod.POST, value = "/novoOdeljnje/{id}")
 	public ResponseEntity<?> novoOdeljenje(@Valid @RequestBody OdeljenjeDTO odeljenjeDTO, @PathVariable Long id) {
 		try {
 			OdeljenjeEntity odeljenje = odeljenjeServiceImpl.novoOdeljeEntity(odeljenjeDTO, id);
-			if (odeljenje.getNastavnik() != null) 
-				return new ResponseEntity<>(odeljenje, HttpStatus.CREATED);			
+			if (odeljenje.getNastavnik() != null)
+				logger.info("novo odeljenje je napravljeno");
+				return new ResponseEntity<>(odeljenje, HttpStatus.CREATED);		
 		} catch (Exception e) {
+			logger.error("nema nastavnika sa tim id-jem");
 			return new ResponseEntity<>("Pogresan ID nastavnika", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public ResponseEntity<?> nadjiOdeljenje(@PathVariable Long id) {
-		try {
+		try {		
 			OdeljenjeEntity odeljenje = odeljenjeServiceImpl.nadjiOdeljenjePOIdju(id);
-			if (odeljenje != null) 
-				return new ResponseEntity<>(odeljenje, HttpStatus.OK);			
+			if (odeljenje != null)
+				logger.info("odeljenje je nadjeno");
+				return new ResponseEntity<>(odeljenje, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("nema odeljenja sa tim id-jem");
 			return new ResponseEntity<>("Nema odeljenja sa tim Id-jem", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
+
 	}
-	
-	
-	
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

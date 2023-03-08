@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,8 @@ public class LoginControler {
 	private SecretKey secretKey;
 	@Value("${spring.security.token-duration}")
 	private Integer tokenDuration;
+	private final Logger logger = (Logger)LoggerFactory.getLogger(this.getClass());
+
 	
 	
 	private String getJWTToken(KorisnikEntity korisnikEntity ) {
@@ -56,8 +60,10 @@ public class LoginControler {
 			KorisnikLogInDTO korisnik = new KorisnikLogInDTO();
 			korisnik.setUsername(username);
 			korisnik.setToken(token);
+			logger.info("Ulogovan je korisnik");
 			return new ResponseEntity<>(korisnik, HttpStatus.OK);
 		}
+		logger.error("Pogresan Username ili sifra");
 		return new ResponseEntity<>("Username ili sifra nije tacno unesena", HttpStatus.UNAUTHORIZED);
 	}
 	

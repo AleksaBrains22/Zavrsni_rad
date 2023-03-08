@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.iktpreobuka.backend.models.EmailObject;
 
-
 @Service
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
 	@Autowired
 	public JavaMailSender emailSender;
+
 	@Override
 	public void sendSimpleMessage(EmailObject object) {
 		SimpleMailMessage mail = new SimpleMailMessage();
@@ -30,14 +30,14 @@ public class EmailServiceImpl implements EmailService{
 	@Override
 	public void sendTemplateMessage(EmailObject object) throws Exception {
 		MimeMessage mail = emailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper (mail, true);
+		MimeMessageHelper helper = new MimeMessageHelper(mail, true);
 		helper.setTo(object.getTo());
 		helper.setSubject(object.getSubject());
-			String text = "<html><body><table style = 'border:2px solid black'" +"<tr><td>" + object.getText() + "</td></tr>"
-				+	"</body></htlm>";
-			
-			helper.setText(text , true);
-			emailSender.send(mail);
+		String text = "<html><body><table style = 'border:2px solid black'" + "<tr><td>" + object.getText()
+				+ "</td></tr>" + "</body></htlm>";
+
+		helper.setText(text, true);
+		emailSender.send(mail);
 	}
 
 	@Override
@@ -47,10 +47,10 @@ public class EmailServiceImpl implements EmailService{
 		helper.setTo(object.getTo());
 		helper.setSubject(object.getSubject());
 		helper.setText(object.getText(), false);
-		
+
 		FileSystemResource file = new FileSystemResource(new File(pathToAttachment));
 		helper.addAttachment(file.getFilename(), file);
-		
+
 		emailSender.send(mail);
 	}
 }

@@ -1,6 +1,8 @@
 package com.iktpreobuka.backend.services;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.iktpreobuka.backend.dto.OdeljenjeDTO;
@@ -14,6 +16,7 @@ public class OdeljenjeServiceImpl implements OdeljenjeService {
 	private OdeljenjeRepositories odeljenjeRepositories;
 	@Autowired
 	private NastavnikServiceImpl nastavnikServiceImpl;
+	private final Logger logger = (Logger)LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public OdeljenjeEntity novoOdeljeEntity(OdeljenjeDTO novoOdeljenjeDTO, Long id) {
@@ -23,14 +26,17 @@ public class OdeljenjeServiceImpl implements OdeljenjeService {
 			odeljenje.setName(novoOdeljenjeDTO.getName());
 			odeljenje.setRazred(novoOdeljenjeDTO.getRazred());
 			odeljenje.setNastavnik(nastavnik);
+			logger.info("poslat je zahtev za cuvanje novog odeljenja");
 			return odeljenjeRepositories.save(odeljenje);
 		}
+		logger.info("nije uspesno obavljen zahtev za novo odeljenje");
 		return null;
 	}
 
 	@Override
 	public OdeljenjeEntity nadjiOdeljenjePOIdju(Long odeljenjeId) {
 		OdeljenjeEntity odeljenje = odeljenjeRepositories.findById(odeljenjeId).get();
+		logger.info("poslat je zahtev za trazenje odeljenja po id-ju");
 		return odeljenje;
 	}
 

@@ -2,6 +2,8 @@ package com.iktpreobuka.backend.services;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -20,15 +22,14 @@ import com.iktpreobuka.backend.util.PasswordEncryption;
 
 @Service
 public class KorisnikServiceImpl implements KorisnikService {
-	@Autowired	
+	@Autowired
 	private KorisnikRepositories repositories;
 	@Autowired
 	private UlogaServiceImpl ulogaServiceImpl;
 	@Autowired
 	private RoditeljServiceImpl roditeljServiceImpl;
+	private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
-	
-	
 	@Override
 	public KorisnikEntity createNewUser(KorisnikDTO noviKorisnik) {
 		Uloga uloga = noviKorisnik.getUloga();
@@ -40,9 +41,10 @@ public class KorisnikServiceImpl implements KorisnikService {
 			admin.setPrezime(noviKorisnik.getPrezime());
 			admin.setUsername(noviKorisnik.getUsername());
 			admin.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
-			admin.setEmail(noviKorisnik.getEmail());			
+			admin.setEmail(noviKorisnik.getEmail());
 			admin.setUloga(ulogaAdmin);
 			repositories.save(admin);
+			logger.info("Poslat je zahtev za pravljenje novog administratora");
 			return admin;
 		case RODITELJ:
 			RoditeljEntity roditelj = new RoditeljEntity();
@@ -54,25 +56,25 @@ public class KorisnikServiceImpl implements KorisnikService {
 			roditelj.setEmail(noviKorisnik.getEmail());
 			roditelj.setUloga(ulogaRoditelj);
 			repositories.save(roditelj);
+			logger.info("Poslat je zahtev za pravljenje novog roditelja");
 			return roditelj;
 		case UCENIK:
-	        UcenikEntity ucenik = new UcenikEntity();
-	        UlogaEntity ulogaUcenik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
-	        ucenik.setIme(noviKorisnik.getIme());
-	        ucenik.setPrezime(noviKorisnik.getPrezime());
-	        ucenik.setUsername(noviKorisnik.getUsername());
-	        ucenik.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
-	        ucenik.setUloga(ulogaUcenik);
-
-	        if (noviKorisnik.getOdeljenje() != null && noviKorisnik.getRoditelj() != null) {
-	            RoditeljEntity roditeljUcenika = roditeljServiceImpl.nadjiRoditeljaPoIdju(noviKorisnik.getRoditelj().getId());
-	            ucenik.setRoditelj(roditeljUcenika);
-	            ucenik.setOdeljenjeEntity(noviKorisnik.getOdeljenje());
-	        }
-
-	        repositories.save(ucenik);
-	        return ucenik;
-
+			UcenikEntity ucenik = new UcenikEntity();
+			UlogaEntity ulogaUcenik = ulogaServiceImpl.findByUloga(noviKorisnik.getUloga());
+			ucenik.setIme(noviKorisnik.getIme());
+			ucenik.setPrezime(noviKorisnik.getPrezime());
+			ucenik.setUsername(noviKorisnik.getUsername());
+			ucenik.setPassword(PasswordEncryption.getPassEncoded(noviKorisnik.getPassword()));
+			ucenik.setUloga(ulogaUcenik);
+			if (noviKorisnik.getOdeljenje() != null && noviKorisnik.getRoditelj() != null) {
+				logger.info("Ako odeljenje i roditelj nastavnika postoji moze se poslati zahtev za dodavanje ucenika");
+				RoditeljEntity roditeljUcenika = roditeljServiceImpl.nadjiRoditeljaPoIdju(noviKorisnik.getRoditelj().getId());
+				ucenik.setRoditelj(roditeljUcenika);
+				ucenik.setOdeljenjeEntity(noviKorisnik.getOdeljenje());
+			}
+			repositories.save(ucenik);
+			logger.info("Poslat je zahtev za pravljenje novog ucenika");
+			return ucenik;
 
 		case NASTAVNIK:
 			NastavnikEntity nastavnik = new NastavnikEntity();
@@ -84,6 +86,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 			nastavnik.setEmail(noviKorisnik.getEmail());
 			nastavnik.setUloga(ulogaNastavnik);
 			repositories.save(nastavnik);
+			logger.info("Poslat je zahtev za pravljenje novog nastavnika");
 			return nastavnik;
 		}
 		return null;
@@ -92,6 +95,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 	@Override
 	public KorisnikEntity findUserbyId(Long id) {
 		Optional<KorisnikEntity> korisnik = repositories.findById(id);
+		logger.info("Poslat je zahtev za trazenje korisnika po id-ju");
 		return korisnik.get();
 	}
 
@@ -99,27 +103,31 @@ public class KorisnikServiceImpl implements KorisnikService {
 	public KorisnikEntity brisanjeKorisnika(Long id) {
 		Optional<KorisnikEntity> korisnik = repositories.findById(id);
 		if (korisnik.isPresent()) {
+			logger.info("Poslat je zahtev za proveru da li korisnik postoji po id-ju");
 			repositories.delete(korisnik.get());
 
 		}
+		logger.info("Poslat je zahtev za brisanje korisnika po id-ju");
 		return korisnik.get();
 	}
 
 	@Override
 	public KorisnikEntity updateKorisnika(KorisnikDTO updejtovanKorisnik, Long id) {
-			Optional<KorisnikEntity> korisnik = repositories.findById(id);
-			if(korisnik.isPresent()) {
-				KorisnikEntity izmenjenKorisnik = korisnik.get();
-				izmenjenKorisnik.setIme(updejtovanKorisnik.getIme());
-				izmenjenKorisnik.setPrezime(updejtovanKorisnik.getPrezime());
-				izmenjenKorisnik.setUsername(updejtovanKorisnik.getUsername());
-				izmenjenKorisnik.setPassword(PasswordEncryption.getPassEncoded(updejtovanKorisnik.getPassword()));
-				izmenjenKorisnik.setEmail(updejtovanKorisnik.getEmail());
-		        UlogaEntity uloga = ulogaServiceImpl.findByUloga(updejtovanKorisnik.getUloga());
-		        izmenjenKorisnik.setUloga(uloga);
-		        repositories.save(izmenjenKorisnik);
-		        return izmenjenKorisnik;
-			}
-			return null;
+		Optional<KorisnikEntity> korisnik = repositories.findById(id);
+		if (korisnik.isPresent()) {
+			KorisnikEntity izmenjenKorisnik = korisnik.get();
+			izmenjenKorisnik.setIme(updejtovanKorisnik.getIme());
+			izmenjenKorisnik.setPrezime(updejtovanKorisnik.getPrezime());
+			izmenjenKorisnik.setUsername(updejtovanKorisnik.getUsername());
+			izmenjenKorisnik.setPassword(PasswordEncryption.getPassEncoded(updejtovanKorisnik.getPassword()));
+			izmenjenKorisnik.setEmail(updejtovanKorisnik.getEmail());
+			UlogaEntity uloga = ulogaServiceImpl.findByUloga(updejtovanKorisnik.getUloga());
+			izmenjenKorisnik.setUloga(uloga);
+			repositories.save(izmenjenKorisnik);
+			logger.info("Poslat je zahtev za izmenu korisnika po id-ju");
+			return izmenjenKorisnik;
 		}
+		logger.warn("Nije proso zahtev za izmenu korisnika id je neispravan");
+		return null;
+	}
 }
