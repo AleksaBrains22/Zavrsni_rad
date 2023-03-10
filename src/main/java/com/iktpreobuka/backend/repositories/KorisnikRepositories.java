@@ -9,4 +9,5 @@ import com.iktpreobuka.backend.entities.KorisnikEntity;
 @Repository
 public interface KorisnikRepositories extends CrudRepository<KorisnikEntity, Long> {
 	public KorisnikEntity findByUsername(String username);
+
 }

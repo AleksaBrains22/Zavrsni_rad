@@ -130,4 +130,15 @@ public class KorisnikServiceImpl implements KorisnikService {
 		logger.warn("Nije proso zahtev za izmenu korisnika id je neispravan");
 		return null;
 	}
+	
+	@Override
+	public KorisnikEntity findByUsername(String username) {
+		KorisnikEntity korisnik = repositories.findByUsername(username);
+		logger.info("Poslat je zahtev za trazenje korisnika po username-u");
+		return korisnik;
+	}
+	
+	
+	
+	
 }

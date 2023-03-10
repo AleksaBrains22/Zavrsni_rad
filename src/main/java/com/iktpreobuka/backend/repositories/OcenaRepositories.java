@@ -10,7 +10,7 @@ import com.iktpreobuka.backend.entities.PredmetEntity;
 import com.iktpreobuka.backend.entities.UcenikEntity;
 
 public interface OcenaRepositories extends CrudRepository<OcenaEntity, Long> {
-	public List<OcenaEntity> findByUcenik(UcenikEntity ucenik);
+	public List<OcenaEntity> findByUcenik(UcenikEntity ucenikId);
 
 	public List<OcenaEntity> findByUcenikAndPredmet(UcenikEntity ucenik, PredmetEntity predmet);
 

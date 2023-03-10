@@ -29,23 +29,21 @@ public class ZakljucnaOcenaControler {
 	
 	@Secured(value = { "ADMIN","NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.POST, path = "/zakljuciOcenu/uceniku/{ucenikId}/iz/Predmeta/{predmetId}")
-	private ResponseEntity<?> zakljuciOcenuIzPredmeta(@RequestBody ZakljucnaOcenaEntity zakljucnaOcenaEntity,
-			@PathVariable UcenikEntity ucenikId, @PathVariable PredmetEntity predmetId,
-			@RequestParam String polugodiste) {
+	public ResponseEntity<?> zakljuciOcenuIzPredmeta(@RequestBody ZakljucnaOcenaEntity zakljucnaOcenaEntity,
+			@PathVariable UcenikEntity ucenikId, @PathVariable PredmetEntity predmetId,@RequestParam String polugodiste) {
 		try {
-			ZakljucnaOcenaEntity zakljucna = zakljucnaOcenaServiceImpl.zakljuciOcenuIzPredmeta(zakljucnaOcenaEntity,
-					ucenikId, predmetId, polugodiste);
-			logger.info("Ocena je zakljucena");
-			return new ResponseEntity<>("Ocena je zakljucena", HttpStatus.OK);
+			zakljucnaOcenaServiceImpl.zakljuciOcenuIzPredmeta(zakljucnaOcenaEntity,ucenikId, predmetId, polugodiste);
+			logger.info("Metoda za zakljucivanje ocene se izvrsila");
+			return new ResponseEntity<>("Zakljucena je ocena", HttpStatus.OK);
 		} catch (Exception e) {
-			logger.error("Doslo je do greske pri zakljucivanju Ocene");
+			logger.info("Doslo je do greske pri zakljucivanju Ocene");
 			return new ResponseEntity<>("Doslo je do greske pri zakljucivanju Ocene", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
 	@Secured(value = { "ADMIN","RODITELJ","NASTAVNIK","UCENIK" })
 	@RequestMapping(method = RequestMethod.GET, path= "/{ucenikId}")
-	private ResponseEntity<?>pronadjiZakljuceOceneUcenika(@PathVariable UcenikEntity ucenikId){
+	public ResponseEntity<?>pronadjiZakljuceOceneUcenika(@PathVariable UcenikEntity ucenikId){
 		try {
 			Optional<ZakljucnaOcenaEntity> zakljucna = zakljucnaOcenaServiceImpl.findByUcenik(ucenikId);			
 			return new ResponseEntity<>(zakljucna, HttpStatus.OK);

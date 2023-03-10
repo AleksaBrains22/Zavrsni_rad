@@ -11,5 +11,6 @@ public interface KorisnikService {
 	public KorisnikEntity findUserbyId(Long id);
 	public KorisnikEntity brisanjeKorisnika(Long id);
 	public KorisnikEntity updateKorisnika(KorisnikDTO updejtovanKorisnik, Long id);
+	public KorisnikEntity findByUsername(String username);
 
 }
