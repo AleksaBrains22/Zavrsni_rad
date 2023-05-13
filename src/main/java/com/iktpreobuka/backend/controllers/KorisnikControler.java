@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,7 +33,7 @@ public class KorisnikControler {
 	private KorisnikServiceImpl korisnikServiceImpl;
 	private final Logger logger = (Logger)LoggerFactory.getLogger(this.getClass());
 	
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.POST, path = "/newUser")
 	public ResponseEntity<KorisnikDTO> newUser(@Valid @RequestBody KorisnikDTO newKorisnikEntity) {
 		try {
@@ -45,7 +45,7 @@ public class KorisnikControler {
 		return new ResponseEntity<KorisnikDTO>(newKorisnikEntity, HttpStatus.CREATED);
 	}
 	
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.PUT, path = "/updejtovanKorisnik/{id}")
 	public ResponseEntity<?> updejtujKorisnika(@Valid @RequestBody KorisnikDTO updejtovanKorisnik,@PathVariable Long id) {
 		try {
@@ -58,7 +58,7 @@ public class KorisnikControler {
 		}
 	}
 	
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public ResponseEntity<?> findUserById(@PathVariable Long id) {
 		try {
@@ -71,7 +71,7 @@ public class KorisnikControler {
 		}
 		
 	}
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.DELETE, path = "/obrisiKorisnika/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
 		try {

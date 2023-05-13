@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,19 +28,20 @@ import com.iktpreobuka.backend.services.PredmetServiceImpl;
 
 @RestController
 @RequestMapping(path = "api/v1/predmet")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PredmetControler {
 	@Autowired
 	private PredmetServiceImpl predmetServiceImpl;
 	private final Logger logger = (Logger)LoggerFactory.getLogger(this.getClass());
 	
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.POST, path = "/novipredmet")
 	ResponseEntity<?> noviPredmet(@Valid @RequestBody PredmetDTO noviPredmetDTO) {
 		PredmetEntity noviPredmet = predmetServiceImpl.novipredmet(noviPredmetDTO);
 		logger.info("napravljen je novi predmet");
 		return new ResponseEntity<>(noviPredmet, HttpStatus.CREATED);
 	}
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.DELETE, path = "/obrisipredmet/{id}")
 	ResponseEntity<?> obrisiPredmet(@PathVariable Long id) {
 		try {
@@ -53,7 +54,7 @@ public class PredmetControler {
 		logger.warn("Predmet ne postoji ili je povezan u bazi sa drugim entitetom");
 		return new ResponseEntity<>("Predmet je obrisan ili nije dobar id", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.PUT, path = "/izmenaPredmeta/{id}")
 	ResponseEntity<?> izmenaPredmeta(@Valid @RequestBody PredmetDTO noviPredmetDTO, @PathVariable Long id) {
 		try {
@@ -67,7 +68,7 @@ public class PredmetControler {
 		logger.warn("Ne postoji predmet sa ovim idjem");
 		return new ResponseEntity<>("Ne postoji predmet sa ovim idjem", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@Secured(value = { "ADMIN" , "NASTAVNIK"})
+//	@Secured(value = { "ADMIN" , "NASTAVNIK"})
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	ResponseEntity<?> pronadjiPredmetPoIdju(@PathVariable Long id) {
 		try {
@@ -81,7 +82,7 @@ public class PredmetControler {
 		logger.warn("Ne postoji predmet sa ovim idjem");
 		return new ResponseEntity<>("Ne postoji predmet sa ovim idjem", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@Secured(value = { "ADMIN","NASTAVNIK" })
+//	@Secured(value = { "ADMIN","NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<?> pronadjiSvePredmete() {
 		try {
@@ -92,7 +93,7 @@ public class PredmetControler {
 		} catch (Exception e) {
 		}
 		logger.warn("Nema predmeta");
-		return new ResponseEntity<>("Nema predmeta", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("Nema predmeta", HttpStatus.BAD_REQUEST);
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

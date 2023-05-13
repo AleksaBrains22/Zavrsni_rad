@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,7 +31,7 @@ import com.iktpreobuka.backend.entities.Polugodiste;
 import com.iktpreobuka.backend.entities.PredmetEntity;
 import com.iktpreobuka.backend.entities.UcenikEntity;
 import com.iktpreobuka.backend.models.EmailObject;
-import com.iktpreobuka.backend.services.AuthenticationUserImpl;
+//import com.iktpreobuka.backend.services.AuthenticationUserImpl;
 import com.iktpreobuka.backend.services.EmailServiceImpl;
 import com.iktpreobuka.backend.services.OcenaServiceImpl;
 
@@ -44,7 +44,7 @@ public class OcenaControler {
 	private EmailServiceImpl emailServiceImpl;
 	private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
-	@Secured(value = { "ADMIN", "NASTAVNIK" })
+//	@Secured(value = { "ADMIN", "NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.POST, path = "/novaOcena/ucenika/{ucenikId}/iz/{predmetId}/od/nastavnika/{nastavnikId}")
 	public ResponseEntity<?> novaOcena(@Valid @RequestBody OcenaEntity ocena, @PathVariable Long ucenikId,
 			@PathVariable Long predmetId, @PathVariable Long nastavnikId) {
@@ -61,7 +61,7 @@ public class OcenaControler {
 		return new ResponseEntity<>("Nije dobar zahtev", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@Secured(value = { "ADMIN", "NASTAVNIK" })
+//	@Secured(value = { "ADMIN", "NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.POST, value = "/novaOcena")
 	public ResponseEntity<?> sendSimpleMessage(@RequestBody EmailObject object) {
 		if (object == null || object.getText() == null || object.getTo() == null) {
@@ -73,7 +73,7 @@ public class OcenaControler {
 		return new ResponseEntity<>("Success!", HttpStatus.OK);
 	}
 
-	@Secured(value = { "ADMIN", "NASTAVNIK" })
+//	@Secured(value = { "ADMIN", "NASTAVNIK" })
 	@RequestMapping(method = RequestMethod.GET, value = "/nadjiOcene/{ucenikId}/izPredmeta/{predmetId}")
 	public ResponseEntity<?> nadjiSveOceneUcenikaizJednogPredmeta(@PathVariable UcenikEntity ucenikId,
 			@PathVariable PredmetEntity predmetId) {
@@ -89,7 +89,7 @@ public class OcenaControler {
 
 	}
 
-	@Secured(value = { "ADMIN", "RODITELJ", "NASTAVNIK", "UCENIK" })
+//	@Secured(value = { "ADMIN", "RODITELJ", "NASTAVNIK", "UCENIK" })
 	@RequestMapping(method = RequestMethod.GET, value = "/nadjiOcene/{ucenikId}")
 	public ResponseEntity<?> nadjiOceneUcenikaIzSvihPredmeta(@PathVariable UcenikEntity ucenikId) {
 		try {
@@ -103,7 +103,7 @@ public class OcenaControler {
 
 	}
 
-	@Secured(value = { "ADMIN", "RODITELJ", "NASTAVNIK", "UCENIK" })
+//	@Secured(value = { "ADMIN", "RODITELJ", "NASTAVNIK", "UCENIK" })
 	@RequestMapping(method = RequestMethod.GET, value = "/nadjiOcene/zaUcenika/{ucenikId}/zaPredmet/{predmetId}")
 	public ResponseEntity<?> pronadjiPoUcenikuIPredmetiIPolugodistuOcenu(@PathVariable UcenikEntity ucenikId,
 			@PathVariable PredmetEntity predmetId, @RequestParam String polugodiste) {
@@ -119,7 +119,7 @@ public class OcenaControler {
 
 	}
 
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.PUT, value = "/izmeniOcenu/{ocenaId}")
 	public ResponseEntity<?> izmeniOcenuUcenikaIzPredmeta(@PathVariable Long ocenaId,
 			@RequestBody OcenaEntity novaOcena) {
@@ -134,7 +134,7 @@ public class OcenaControler {
 
 	}
 
-	@Secured(value = { "ADMIN" })
+//	@Secured(value = { "ADMIN" })
 	@RequestMapping(method = RequestMethod.DELETE, value = "/izbrisiOcenu/{ocenaId}")
 	public ResponseEntity<?> izbrisiOcenuUcenika(@PathVariable Long ocenaId) {
 		try {
